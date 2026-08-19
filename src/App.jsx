@@ -21,6 +21,7 @@ function App() {
 
   // Dashboard State
   const [country, setCountry] = useState('India');
+  const [clockType, setClockType] = useState('digital');
 
   // Clock Timer — only runs when logged in
   useEffect(() => {
@@ -322,8 +323,28 @@ const handleSignUp = async (e) => {
 
                   <div className="country-badge-pill mb-3">📍 {country} Time</div>
 
-                  {/* Pass time, theme, country to ClockDisplay through props */}
-                  <ClockDisplay time={time} theme={theme} country={country} />
+                  {/* Clock Type Toggle */}
+                  <div className="mb-3 d-flex justify-content-center">
+                    <div className="btn-group" role="group">
+                      <button 
+                        type="button" 
+                        className={`btn btn-sm ${clockType === 'digital' ? 'btn-primary' : 'btn-outline-primary'}`}
+                        onClick={() => setClockType('digital')}
+                      >
+                        Digital
+                      </button>
+                      <button 
+                        type="button" 
+                        className={`btn btn-sm ${clockType === 'analog' ? 'btn-primary' : 'btn-outline-primary'}`}
+                        onClick={() => setClockType('analog')}
+                      >
+                        Analog
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Pass time, theme, country, clockType to ClockDisplay through props */}
+                  <ClockDisplay time={time} theme={theme} country={country} clockType={clockType} />
 
                   <div className="theme-label mb-3">
                     {theme === 'light' ? '☀ Light Theme' : '☾ Dark Theme'}

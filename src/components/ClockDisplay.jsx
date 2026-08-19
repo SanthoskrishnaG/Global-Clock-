@@ -4,7 +4,7 @@ import React from 'react';
  * ClockDisplay component
  * Receives the current time, theme, and country via props and displays the digital clock.
  */
-function ClockDisplay({ time, theme, country }) {
+function ClockDisplay({ time, theme, country, clockType = 'digital' }) {
   // Map countries to representative IANA timezones
   const getCountryTimezone = (countryName) => {
     switch (countryName) {
@@ -60,6 +60,28 @@ function ClockDisplay({ time, theme, country }) {
   };
 
   const { hours, minutes, seconds, ampm } = getTimeParts(time, country);
+
+  if (clockType === 'analog') {
+    const h = parseInt(hours, 10);
+    const m = parseInt(minutes, 10);
+    const s = parseInt(seconds, 10);
+
+    const secondDeg = s * 6;
+    const minuteDeg = m * 6 + s * 0.1;
+    const hourDeg = (h % 12) * 30 + m * 0.5;
+
+    return (
+      <div className="clock-display-wrapper text-center my-4">
+        <div className="analog-clock">
+          <div className="hand hour" style={{ transform: `translateX(-50%) rotate(${hourDeg}deg)` }} />
+          <div className="hand minute" style={{ transform: `translateX(-50%) rotate(${minuteDeg}deg)` }} />
+          <div className="hand second" style={{ transform: `translateX(-50%) rotate(${secondDeg}deg)` }} />
+          <div className="center-dot" />
+        </div>
+        <div className="clock-ampm">{ampm}</div>
+      </div>
+    );
+  }
 
   return (
     <div className="clock-display-wrapper text-center my-4">
