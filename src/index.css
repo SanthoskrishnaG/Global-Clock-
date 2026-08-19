@@ -1,0 +1,71 @@
+/* ===== Global Resets & Base ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  overflow-x: hidden;
+  cursor: crosshair;
+}
+
+button { cursor: pointer; }
+
+#root {
+  min-height: 100vh;
+  width: 100%;
+}
+
+/* ===== Light Theme ===== */
+body.light {
+  background: linear-gradient(135deg, #e8eaf6 0%, #e0f7fa 50%, #f3e5f5 100%);
+  color: #1a1a2e;
+}
+
+/* ===== Dark Theme ===== */
+body.dark {
+  background: linear-gradient(135deg, #0a0e27 0%, #0d1b2a 50%, #1b0a28 100%);
+  color: #e2e8f0;
+}
+
+/* Animated floating particles for dark mode */
+body.dark::before,
+body.dark::after {
+  content: "";
+  position: fixed;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0.06;
+  z-index: 0;
+}
+
+body.dark::before {
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, #3b82f6, transparent);
+  top: -200px;
+  right: -200px;
+  animation: floatBlob1 20s ease-in-out infinite;
+}
+
+body.dark::after {
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, #8b5cf6, transparent);
+  bottom: -200px;
+  left: -200px;
+  animation: floatBlob2 25s ease-in-out infinite;
+}
+
+@keyframes floatBlob1 {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(-80px, 80px); }
+}
+
+@keyframes floatBlob2 {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(80px, -80px); }
+}
