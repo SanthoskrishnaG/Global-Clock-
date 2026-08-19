@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import ClockDisplay from './components/ClockDisplay';
+import { countries } from './utils/timezones';
 
 function App() {
   // Auth Mode: "signin" or "signup"
@@ -308,16 +309,11 @@ const handleSignUp = async (e) => {
                       value={country}
                       onChange={(e) => setCountry(e.target.value)}
                     >
-                      <option value="India">🇮🇳 India</option>
-                      <option value="UK (London)">🇬🇧 UK (London)</option>
-                      <option value="Japan">🇯🇵 Japan</option>
-                      <option value="Canada">🇨🇦 Canada</option>
-                      <option value="USA">🇺🇸 USA</option>
-                      <option value="Australia">🇦🇺 Australia</option>
-                      <option value="Brazil">🇧🇷 Brazil</option>
-                      <option value="South Africa">🇿🇦 South Africa</option>
-                      <option value="France">🇫🇷 France</option>
-                      <option value="UAE">🇦🇪 UAE</option>
+                      {countries.map((c) => (
+                        <option key={c.name} value={c.name}>
+                          {c.name}
+                        </option>
+                      ))}
                     </select>
                   </div>
 
@@ -339,8 +335,13 @@ const handleSignUp = async (e) => {
                     </button>
                   </div>
 
-                  {/* Pass time, theme, country, clockType to ClockDisplay through props */}
-                  <ClockDisplay time={time} theme={theme} country={country} clockType={clockType} />
+                  {/* Pass time, theme, timezone, clockType to ClockDisplay through props */}
+                  <ClockDisplay 
+                    time={time} 
+                    theme={theme} 
+                    timezone={countries.find(c => c.name === country)?.timezone || 'Asia/Kolkata'} 
+                    clockType={clockType} 
+                  />
 
                   <div className="theme-label mb-3">
                     {theme === 'light' ? '☀ Light Theme' : '☾ Dark Theme'}

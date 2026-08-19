@@ -4,30 +4,12 @@ import React from 'react';
  * ClockDisplay component
  * Receives the current time, theme, and country via props and displays the digital clock.
  */
-function ClockDisplay({ time, theme, country, clockType = 'digital' }) {
-  // Map countries to representative IANA timezones
-  const getCountryTimezone = (countryName) => {
-    switch (countryName) {
-      case 'India': return 'Asia/Kolkata';
-      case 'UK (London)': return 'Europe/London';
-      case 'Japan': return 'Asia/Tokyo';
-      case 'Canada': return 'America/Toronto';
-      case 'USA': return 'America/New_York';
-      case 'Australia': return 'Australia/Sydney';
-      case 'Brazil': return 'America/Sao_Paulo';
-      case 'South Africa': return 'Africa/Johannesburg';
-      case 'France': return 'Europe/Paris';
-      case 'UAE': return 'Asia/Dubai';
-      default: return undefined;
-    }
-  };
-
+function ClockDisplay({ time, theme, timezone, clockType = 'digital' }) {
   // Format the time parts using native Intl API
-  const getTimeParts = (date, countryName) => {
+  const getTimeParts = (date, tz) => {
     try {
-      const timeZone = getCountryTimezone(countryName);
       const formatter = new Intl.DateTimeFormat('en-US', {
-        timeZone: timeZone,
+        timeZone: tz,
         hour: '2-digit',
         minute: '2-digit',
         second: '2-digit',
@@ -59,7 +41,7 @@ function ClockDisplay({ time, theme, country, clockType = 'digital' }) {
     }
   };
 
-  const { hours, minutes, seconds, ampm } = getTimeParts(time, country);
+  const { hours, minutes, seconds, ampm } = getTimeParts(time, timezone);
 
   if (clockType === 'analog') {
     const h = parseInt(hours, 10);
