@@ -70,9 +70,26 @@ function ClockDisplay({ time, theme, country, clockType = 'digital' }) {
     const minuteDeg = m * 6 + s * 0.1;
     const hourDeg = (h % 12) * 30 + m * 0.5;
 
+    const renderTicks = () => {
+      const ticks = [];
+      for (let i = 1; i <= 12; i++) {
+        ticks.push(
+          <div
+            key={i}
+            className="clock-tick"
+            style={{ transform: `rotate(${i * 30}deg)` }}
+          >
+            <span style={{ transform: `rotate(-${i * 30}deg)` }}>{i}</span>
+          </div>
+        );
+      }
+      return ticks;
+    };
+
     return (
       <div className="clock-display-wrapper text-center my-4">
         <div className="analog-clock">
+          {renderTicks()}
           <div className="hand hour" style={{ transform: `translateX(-50%) rotate(${hourDeg}deg)` }} />
           <div className="hand minute" style={{ transform: `translateX(-50%) rotate(${minuteDeg}deg)` }} />
           <div className="hand second" style={{ transform: `translateX(-50%) rotate(${secondDeg}deg)` }} />

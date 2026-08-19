@@ -324,23 +324,19 @@ const handleSignUp = async (e) => {
                   <div className="country-badge-pill mb-3">📍 {country} Time</div>
 
                   {/* Clock Type Toggle */}
-                  <div className="mb-3 d-flex justify-content-center">
-                    <div className="btn-group" role="group">
-                      <button 
-                        type="button" 
-                        className={`btn btn-sm ${clockType === 'digital' ? 'btn-primary' : 'btn-outline-primary'}`}
-                        onClick={() => setClockType('digital')}
-                      >
-                        Digital
-                      </button>
-                      <button 
-                        type="button" 
-                        className={`btn btn-sm ${clockType === 'analog' ? 'btn-primary' : 'btn-outline-primary'}`}
-                        onClick={() => setClockType('analog')}
-                      >
-                        Analog
-                      </button>
-                    </div>
+                  <div className="auth-tabs mb-4 clock-toggle-tabs">
+                    <button
+                      className={`auth-tab ${clockType === 'digital' ? 'active' : ''}`}
+                      onClick={() => setClockType('digital')}
+                    >
+                      <span className="me-2">12:00</span> Digital
+                    </button>
+                    <button
+                      className={`auth-tab ${clockType === 'analog' ? 'active' : ''}`}
+                      onClick={() => setClockType('analog')}
+                    >
+                      <span className="me-2">⏱</span> Analog
+                    </button>
                   </div>
 
                   {/* Pass time, theme, country, clockType to ClockDisplay through props */}
